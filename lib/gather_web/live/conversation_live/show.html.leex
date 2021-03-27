@@ -18,5 +18,11 @@
 
 </ul>
 
+<ul>
+<%= for message <- @messages do %>
+  <li><%= message.content %></li>
+<% end %>
+</ul>
+
 <span><%= live_patch "Edit", to: Routes.conversation_show_path(@socket, :edit, @conversation), class: "button" %></span>
 <span><%= live_redirect "Back", to: Routes.conversation_index_path(@socket, :index) %></span>

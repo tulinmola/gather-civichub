@@ -31,6 +31,8 @@ Generate conversations with `mix phx.gen.live Chat Conversation conversations ti
 
 Add `<li><%= link "Conversations", to: Routes.conversation_index_path(@conn, :index) %></li>` to lib/gather_web/templates/layout/root.html.leex nav links section
 
+Create messages with `mix phx.gen.context Chat Message messages user_id:references:users conversation_id:references:conversations content:text`
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/

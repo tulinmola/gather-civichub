@@ -4,6 +4,7 @@ defmodule Gather.Chat.Conversation do
 
   schema "conversations" do
     field :title, :string
+    has_many :messages, Gather.Chat.Message
 
     timestamps()
   end
