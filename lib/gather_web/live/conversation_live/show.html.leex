@@ -1,4 +1,4 @@
-<h1>Show Conversation</h1>
+<h1><%= @conversation.title %></h1>
 
 <%= if @live_action in [:edit] do %>
   <%= live_modal @socket, GatherWeb.ConversationLive.FormComponent,
@@ -10,19 +10,15 @@
 <% end %>
 
 <ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @conversation.title %>
-  </li>
-
-</ul>
-
-<ul>
 <%= for message <- @messages do %>
   <li><%= message.content %></li>
 <% end %>
 </ul>
+
+<%= f = form_for :message, "#", [phx_submit: "send_message"] %>
+  <%= text_input f, :content %>
+  <%= submit "Send" %>
+</form>
 
 <span><%= live_patch "Edit", to: Routes.conversation_show_path(@socket, :edit, @conversation), class: "button" %></span>
 <span><%= live_redirect "Back", to: Routes.conversation_index_path(@socket, :index) %></span>
