@@ -1,0 +1,22 @@
+<h1>Show Conversation</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, GatherWeb.ConversationLive.FormComponent,
+    id: @conversation.id,
+    title: @page_title,
+    action: @live_action,
+    conversation: @conversation,
+    return_to: Routes.conversation_show_path(@socket, :show, @conversation) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @conversation.title %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.conversation_show_path(@socket, :edit, @conversation), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.conversation_index_path(@socket, :index) %></span>

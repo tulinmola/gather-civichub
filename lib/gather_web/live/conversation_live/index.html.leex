@@ -1,0 +1,35 @@
+<h1>Listing Conversations</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, GatherWeb.ConversationLive.FormComponent,
+    id: @conversation.id || :new,
+    title: @page_title,
+    action: @live_action,
+    conversation: @conversation,
+    return_to: Routes.conversation_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="conversations">
+    <%= for conversation <- @conversations do %>
+      <tr id="conversation-<%= conversation.id %>">
+        <td><%= conversation.title %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.conversation_show_path(@socket, :show, conversation) %></span>
+          <span><%= live_patch "Edit", to: Routes.conversation_index_path(@socket, :edit, conversation) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: conversation.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Conversation", to: Routes.conversation_index_path(@socket, :new) %></span>

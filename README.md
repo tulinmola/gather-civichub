@@ -25,6 +25,11 @@ Run migration (in terminal or browser) to apply database changes.
 
 Run server `mix phx.server` to see/create users.
 
+Check live view resource generator with `mix help phx.gen.live`.
+
+Generate conversations with `mix phx.gen.live Chat Conversation conversations title:string` and browse `url:4000/conversations`
+
+Add `<li><%= link "Conversations", to: Routes.conversation_index_path(@conn, :index) %></li>` to lib/gather_web/templates/layout/root.html.leex nav links section
 
 ## Learn more
 

@@ -21,6 +21,13 @@ defmodule GatherWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    
+    live "/conversations", ConversationLive.Index, :index
+    live "/conversations/new", ConversationLive.Index, :new
+    live "/conversations/:id/edit", ConversationLive.Index, :edit
+
+    live "/conversations/:id", ConversationLive.Show, :show
+    live "/conversations/:id/show/edit", ConversationLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
