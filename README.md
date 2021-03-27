@@ -17,6 +17,14 @@ Install js packages with `cd assets && npm install && cd ..`
 
 Create database with `mix ecto.create`
 
+Install auth with https://github.com/aaronrenner/phx_gen_auth following instructions.
+
+Then execute generator `mix phx.gen.auth Accounts User users`
+
+Run migration (in terminal or browser) to apply database changes.
+
+Run server `mix phx.server` to see/create users.
+
 
 ## Learn more
 
