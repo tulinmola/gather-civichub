@@ -14,6 +14,8 @@ defmodule GatherWeb.ConversationLive.Show do
   def handle_params(%{"id" => id}, _, socket) do
     conversation = Chat.get_conversation!(id)
 
+    GatherWeb.Endpoint.subscribe("conversation-#{id}")
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
@@ -27,14 +29,19 @@ defmodule GatherWeb.ConversationLive.Show do
     conversation = socket.assigns.conversation
 
     case Gather.Chat.create_message(user, conversation, message_params) do
-      {:ok, new_message} ->
-        updated_messages = socket.assigns.messages ++ [new_message]
-        {:noreply, assign(socket, :messages, updated_messages)}
+      {:ok, _new_message} ->
+        {:noreply, socket}
         
       {:error, error} ->
         IO.inspect(error)
         {:noreply, socket}
     end
+  end
+
+  @impl true
+  def handle_info(%{event: "new_message", payload: new_message}, socket) do
+    updated_messages = socket.assigns.messages ++ [new_message]
+    {:noreply, assign(socket, :messages, updated_messages)}
   end
 
   defp page_title(:show), do: "Show Conversation"
